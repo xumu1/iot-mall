@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ustc.iot.dao.ComponentMapper">
+    <resultMap id="BaseResultMap" type="edu.ustc.iot.pojo.Component">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="company" jdbcType="INTEGER" property="company"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, type ,company,description
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from component
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from component
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.ustc.iot.pojo.Component">
+    insert into component (id, name, type ,company,description)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="edu.ustc.iot.pojo.Component">
+        insert into component
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="edu.ustc.iot.pojo.Component">
+        update component
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="company != null">
+                company = #{company,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.Component">
+    update component
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      company = #{company,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+<!--    <select id="selectByCategoryIdSet" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from mall_product-->
+<!--        where status = 1-->
+<!--        <if test="categoryIdSet.size() > 0">-->
+<!--            and category_id in-->
+<!--            <foreach collection="categoryIdSet" item="item" index="index" open="(" separator="," close=")">-->
+<!--                #{item}-->
+<!--            </foreach>-->
+<!--        </if>-->
+<!--    </select>-->
+
+    <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from component
+        where type = #{type,jdbcType=INTEGER}
+    </select>
+
+<!--    <select id="selectByProductIdSet" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from mall_product-->
+<!--        <where>-->
+<!--            <if test="productIdSet.size() > 0">-->
+<!--                id in-->
+<!--                <foreach collection="productIdSet" item="item" index="index" open="(" separator="," close=")">-->
+<!--                    #{item}-->
+<!--                </foreach>-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+</mapper>
