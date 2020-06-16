@@ -1,14 +1,18 @@
 package edu.ustc.iot.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 功能描述：
+ * 功能描述：用户
  *
  * @Author: xumu
  * @Date: 2020-5-15 21:52
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
   private Integer id;
   private String username;

@@ -1,9 +1,10 @@
 package edu.ustc.iot.controller;
 
 import com.github.pagehelper.PageInfo;
+import edu.ustc.iot.pojo.Component;
+import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
 import edu.ustc.iot.service.impl.ComponentServiceImpl;
-import edu.ustc.iot.vo.ComponentVo;
-import edu.ustc.iot.vo.ResponseVo;
+import edu.ustc.iot.pojo.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class ComponentController {
   }
 
   @GetMapping("/components/{componentId}") //查询某一商品，参数在url中传递
-  public ResponseVo<ComponentVo> showProductDetail(@PathVariable(value = "componentId") Integer componentId){
+  public ResponseVo<ComponentResponse> showProductDetail(@PathVariable(value = "componentId") Integer componentId){
     return componentService.selectByComponentId(componentId);
   }
 }

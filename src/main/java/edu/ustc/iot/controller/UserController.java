@@ -1,15 +1,15 @@
 package edu.ustc.iot.controller;
 
 import edu.ustc.iot.consts.MallConst;
-import edu.ustc.iot.form.UserLoginForm;
-import edu.ustc.iot.form.UserRegisterForm;
+import edu.ustc.iot.pojo.form.UserLoginForm;
+import edu.ustc.iot.pojo.form.UserRegisterForm;
 import edu.ustc.iot.pojo.User;
+import edu.ustc.iot.pojo.vo.reponse.UserResponse;
 import edu.ustc.iot.service.IUserSerivce;
-import edu.ustc.iot.vo.ResponseVo;
+import edu.ustc.iot.pojo.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +25,7 @@ public class UserController {
     @Autowired
     private IUserSerivce userSerivce;
 
+    // 注册
     @PostMapping("/user/register")
     public ResponseVo register(@Valid @RequestBody UserRegisterForm userRegisterForm){
         log.info("username:"+ userRegisterForm.getUsername());
@@ -34,10 +35,11 @@ public class UserController {
         return userSerivce.register(user);
     }
 
+    // 登录
     @PostMapping("/user/login")
     public ResponseVo login(@Valid @RequestBody UserLoginForm userLoginForm,
                             HttpServletRequest httpServletRequest){
-        ResponseVo<User> userResponseVo = userSerivce.login(userLoginForm.getUsername(), userLoginForm.getPassword());
+        ResponseVo<UserResponse> userResponseVo = userSerivce.login(userLoginForm.getUsername(), userLoginForm.getPassword());
         //设置session，保存在内存中，也可保存到redis中
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute(MallConst.CURRENT_USER, userResponseVo.getData());
@@ -47,6 +49,7 @@ public class UserController {
     }
 
 
+    // 登出
     //TODO 判断登录状态
     @PostMapping("/user/logout")
     public ResponseVo logout(HttpSession session){
@@ -56,9 +59,4 @@ public class UserController {
         return ResponseVo.success();
     }
 
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("success");
-        return "success";
-    }
 }

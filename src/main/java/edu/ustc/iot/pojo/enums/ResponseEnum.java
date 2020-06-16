@@ -1,4 +1,4 @@
-package edu.ustc.iot.enums;
+package edu.ustc.iot.pojo.enums;
 
 import lombok.Getter;
 

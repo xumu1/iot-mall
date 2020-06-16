@@ -1,8 +1,10 @@
-package edu.ustc.iot.vo;
+package edu.ustc.iot.pojo.vo;
 
-import edu.ustc.iot.enums.ResponseEnum;
+import edu.ustc.iot.pojo.enums.ResponseEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
 
 import java.util.Objects;

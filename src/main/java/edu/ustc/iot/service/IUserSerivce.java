@@ -2,7 +2,8 @@ package edu.ustc.iot.service;
 
 
 import edu.ustc.iot.pojo.User;
-import edu.ustc.iot.vo.ResponseVo;
+import edu.ustc.iot.pojo.vo.ResponseVo;
+import edu.ustc.iot.pojo.vo.reponse.UserResponse;
 
 public interface IUserSerivce {
     /**
@@ -14,6 +15,6 @@ public interface IUserSerivce {
      * 登陆
      * @param
      */
-    ResponseVo<User> login(String username, String password);
+    ResponseVo<UserResponse> login(String username, String password);
 
 }

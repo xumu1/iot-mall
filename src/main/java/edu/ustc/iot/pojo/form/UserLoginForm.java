@@ -1,11 +1,11 @@
-package edu.ustc.iot.form;
+package edu.ustc.iot.pojo.form;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UserRegisterForm {
+public class UserLoginForm {
     @NotBlank(message = "用户名不能为空") //用于string，判断空格
     //@NotEmpty 用于集合
     //NotNull 是否为null
@@ -13,7 +13,4 @@ public class UserRegisterForm {
 
     @NotBlank(message = "密码不能为空")
     private String password;
-
-    @NotBlank(message = "邮箱不能为空")
-    private String email;
 }
