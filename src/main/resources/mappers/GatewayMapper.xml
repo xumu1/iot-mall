@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.ustc.iot.dao.ComponentMapper">
-    <resultMap id="BaseResultMap" type="edu.ustc.iot.pojo.Component">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="type" jdbcType="INTEGER" property="type"/>
-        <result column="company" jdbcType="INTEGER" property="company"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
+<mapper namespace="edu.ustc.iot.dao.GatewayMapper">
+    <resultMap id="BaseResultMap" type="edu.ustc.iot.pojo.component.Sensor">
+        <id column="id" property="id"/>
+        <result column="model" property="model"/>
+        <result column="innerProtocols" property="innerProtocols"/>
+        <result column="uploadProtocols" property="uploadProtocols"/>
+        <result column="IndustrialGrade" property="IndustrialGrade"/>
+        <result column="chargeable" property="chargeable"/>
+        <result column="lowVoltage" property="lowVoltage"/>
+        <result column="highVoltage" property="highVoltage"/>
+        <result column="lowTemperature" property="lowTemperature"/>
+        <result column="highTemperature" property="highTemperature"/>
+        <result column="desc" property="desc"/>
+        <result column="otherDesc" property="otherDesc"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, type ,company,description
+        id,model,innerProtocols,
+        uploadProtocols,IndustrialGrade,
+        chargeable, lowVoltage,
+        highVoltage,lowTemperature,
+        highTemperature,desc,otherDesc
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from component
+        from gateway
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from component
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="edu.ustc.iot.pojo.Component">
+<!--    待改-->
+    <insert id="insert" parameterType="edu.ustc.iot.pojo.component.Sensor">
     insert into component (id, name, type ,company,description)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
       #{type,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR},
       #{description,jdbcType=VARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="edu.ustc.iot.pojo.Component">
+    <insert id="insertSelective" parameterType="edu.ustc.iot.pojo.component.Component">
         insert into component
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -65,7 +77,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="edu.ustc.iot.pojo.Component">
+    <update id="updateByPrimaryKeySelective" parameterType="edu.ustc.iot.pojo.component.Component">
         update component
         <set>
             <if test="name != null">
@@ -83,7 +95,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.Component">
+    <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.component.Component">
     update component
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
@@ -91,25 +103,24 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
     <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from component
         where type = #{type,jdbcType=INTEGER}
     </select>
-
-<!--    <select id="selectByProductIdSet" resultMap="BaseResultMap">-->
-<!--        select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--        from mall_product-->
-<!--        <where>-->
-<!--            <if test="productIdSet.size() > 0">-->
-<!--                id in-->
-<!--                <foreach collection="productIdSet" item="item" index="index" open="(" separator="," close=")">-->
-<!--                    #{item}-->
-<!--                </foreach>-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
 </mapper>
+
+        <!--    <select id="selectByProductIdSet" resultMap="BaseResultMap">-->
+        <!--        select-->
+        <!--        <include refid="Base_Column_List"/>-->
+        <!--        from mall_product-->
+        <!--        <where>-->
+        <!--            <if test="productIdSet.size() > 0">-->
+        <!--                id in-->
+        <!--                <foreach collection="productIdSet" item="item" index="index" open="(" separator="," close=")">-->
+        <!--                    #{item}-->
+        <!--                </foreach>-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <!--    </select>-->

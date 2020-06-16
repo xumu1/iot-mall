@@ -3,7 +3,9 @@ package edu.ustc.iot.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.ustc.iot.dao.ComponentMapper;
-import edu.ustc.iot.pojo.Component;
+import edu.ustc.iot.dao.GatewayMapper;
+import edu.ustc.iot.dao.SensorMapper;
+import edu.ustc.iot.pojo.component.Component;
 import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
 import edu.ustc.iot.service.IComponentService;
 import edu.ustc.iot.pojo.vo.ResponseVo;
@@ -27,16 +29,26 @@ public class ComponentServiceImpl implements IComponentService {
 
   @Autowired
   @SuppressWarnings("all")
-  private ComponentMapper componentMapper;
+  private GatewayMapper gatewayMapper;
+
+  @Autowired
+  @SuppressWarnings("all")
+  private SensorMapper sensorMapper;
 
   //根据类型查找组件
   @Override
   public ResponseVo<PageInfo> list(Integer type, Integer pageNum, Integer pageSize) {
 
     PageHelper.startPage(pageNum,pageSize);
-    List<Component> components = componentMapper.selectByType(type);
+    List<Component> components = null;
+    if(type == 0){
+      //传感器
+      components = sensorMapper.selectByType(type);
+    }else {
+      //网关
+      components = gatewayMapper.selectByType(type);
+    }
     log.info("component={}",components);
-
     List<ComponentResponse> componentList = new ArrayList<>();
     for(Component element : components){
       ComponentResponse component = new ComponentResponse();
@@ -49,8 +61,16 @@ public class ComponentServiceImpl implements IComponentService {
   }
 
   @Override
-  public ResponseVo<ComponentResponse> selectByComponentId(Integer componentId) {
-    Component component = componentMapper.selectByPrimaryKey(componentId);
+  public ResponseVo<ComponentResponse> selectByComponentId(Integer componentId,Integer componentType) {
+    // 根据type的不同，来对不同数据库进行查询
+    Component component = null;
+    if(componentType == 0){
+      //传感器
+      component = sensorMapper.selectByPrimaryKey(componentId);
+    }else{
+      //网关
+      component = gatewayMapper.selectByPrimaryKey(componentId);
+    }
     ComponentResponse componentVo = new ComponentResponse();
     BeanUtils.copyProperties(component,componentVo);
     return ResponseVo.success(componentVo);

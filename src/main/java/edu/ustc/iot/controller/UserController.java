@@ -1,8 +1,8 @@
 package edu.ustc.iot.controller;
 
 import edu.ustc.iot.consts.MallConst;
-import edu.ustc.iot.pojo.form.UserLoginForm;
-import edu.ustc.iot.pojo.form.UserRegisterForm;
+import edu.ustc.iot.pojo.vo.request.form.UserLoginForm;
+import edu.ustc.iot.pojo.vo.request.form.UserRegisterForm;
 import edu.ustc.iot.pojo.User;
 import edu.ustc.iot.pojo.vo.reponse.UserResponse;
 import edu.ustc.iot.service.IUserSerivce;
@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("api")
 @Slf4j
 public class UserController {
 
@@ -50,7 +52,6 @@ public class UserController {
 
 
     // 登出
-    //TODO 判断登录状态
     @PostMapping("/user/logout")
     public ResponseVo logout(HttpSession session){
         log.info("/user/logout,sessionId={}",session.getId());

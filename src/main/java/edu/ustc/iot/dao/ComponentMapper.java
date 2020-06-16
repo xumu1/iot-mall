@@ -1,6 +1,6 @@
 package edu.ustc.iot.dao;
 
-import edu.ustc.iot.pojo.Component;
+import edu.ustc.iot.pojo.component.Component;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,9 +30,9 @@ public interface ComponentMapper {
   int updateByPrimaryKey(Component record);
 
   //根据类型查找
-  List<Component> selectByType(@Param("type") Integer type);
+  List<Component> selectByType(Integer type);
 
   Component selectByCategoryId(Integer categoryId);
 
-  List<Component> selectByComponentIdSet(@Param("componentIdSet") Set<Integer> componentIdSet);
+  List<Component> selectByComponentIdSet(Set<Integer> componentIdSet);
 }

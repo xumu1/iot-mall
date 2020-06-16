@@ -1,7 +1,6 @@
 package edu.ustc.iot.service;
 
 import com.github.pagehelper.PageInfo;
-import edu.ustc.iot.pojo.Component;
 import edu.ustc.iot.pojo.vo.ResponseVo;
 import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
 
@@ -14,5 +13,5 @@ import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
 public interface IComponentService {
   ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
 
-  ResponseVo<ComponentResponse> selectByComponentId(Integer componentId);
+  ResponseVo<ComponentResponse> selectByComponentId(Integer componentId,Integer componentType);
 }

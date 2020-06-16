@@ -1,4 +1,4 @@
-package edu.ustc.iot.pojo;
+package edu.ustc.iot.pojo.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,12 +11,6 @@ import lombok.NoArgsConstructor;
  * @Date: 2020-5-16 18:39
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Component {
   private Integer id;
-  private String name;
-  private Integer type;
-  private Integer company;
-  private String description;
 }

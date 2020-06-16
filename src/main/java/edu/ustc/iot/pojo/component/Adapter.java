@@ -1,4 +1,4 @@
-package edu.ustc.iot.pojo;
+package edu.ustc.iot.pojo.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
