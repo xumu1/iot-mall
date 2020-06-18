@@ -61,8 +61,7 @@ public class UserSerivceImpl implements IUserSerivce {
             return ResponseVo.error(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
         }
 
-        if(!user.getPassword().equalsIgnoreCase(DigestUtils.md5DigestAsHex(
-                password.getBytes(StandardCharsets.UTF_8)))){
+        if(!user.getPassword().equalsIgnoreCase(password)){
             //密码错误(返回：用户名或密码错误)
             return ResponseVo.error(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
         }
@@ -72,7 +71,7 @@ public class UserSerivceImpl implements IUserSerivce {
         // 根据user的companyid查询company封装进userResponse中
         Company company = companyMapper.selectByPrimaryKey(user.getCompany());
         userResponse.setCompany(company);
-        return ResponseVo.success(userResponse);
+        return ResponseVo.success(userResponse,"登录成功");
     }
 
 }

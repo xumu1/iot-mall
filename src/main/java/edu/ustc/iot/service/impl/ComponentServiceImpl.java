@@ -7,6 +7,8 @@ import edu.ustc.iot.dao.GatewayMapper;
 import edu.ustc.iot.dao.SensorMapper;
 import edu.ustc.iot.pojo.component.Component;
 import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
+import edu.ustc.iot.pojo.vo.reponse.GatewayResponse;
+import edu.ustc.iot.pojo.vo.reponse.SensorResponse;
 import edu.ustc.iot.service.IComponentService;
 import edu.ustc.iot.pojo.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
@@ -41,23 +43,27 @@ public class ComponentServiceImpl implements IComponentService {
 
     PageHelper.startPage(pageNum,pageSize);
     List<Component> components = null;
+    ComponentResponse component = null;
     if(type == 0){
+      // TODO
       //传感器
-      components = sensorMapper.selectByType(type);
+      components = sensorMapper.selectByType();
+      component = new SensorResponse();
     }else {
+      // TODO
       //网关
-      components = gatewayMapper.selectByType(type);
+      components = gatewayMapper.selectByType();
+      component = new GatewayResponse();
     }
     log.info("component={}",components);
     List<ComponentResponse> componentList = new ArrayList<>();
     for(Component element : components){
-      ComponentResponse component = new ComponentResponse();
       BeanUtils.copyProperties(element, component);
       componentList.add(component);
     }
     PageInfo pageInfo = new PageInfo<>(components);
-    pageInfo.setList(componentList);
-    return ResponseVo.success(pageInfo);
+    pageInfo.setList(components);
+    return ResponseVo.success(pageInfo,"列表查询成功");
   }
 
   @Override

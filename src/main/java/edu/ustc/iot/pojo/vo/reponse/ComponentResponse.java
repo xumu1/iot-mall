@@ -9,8 +9,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ComponentResponse {
     private Integer id;
-    private String name;
-    private Integer type;
-    private Integer company;
-    private String description;
 }
