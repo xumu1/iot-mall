@@ -32,7 +32,5 @@ public interface ComponentMapper {
   //根据类型查找
   List<Component> selectByType(Integer type);
 
-  Component selectByCategoryId(Integer categoryId);
-
-  List<Component> selectByComponentIdSet(Set<Integer> componentIdSet);
+  List<Component> selectByExample(Component component);
 }
