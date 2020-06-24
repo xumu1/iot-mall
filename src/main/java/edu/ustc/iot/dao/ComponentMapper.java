@@ -30,7 +30,7 @@ public interface ComponentMapper {
   int updateByPrimaryKey(Component record);
 
   //根据类型查找
-  List<Component> selectByType(Integer type);
+  List<Component> selectByType();
 
   List<Component> selectByExample(Component component);
 }
