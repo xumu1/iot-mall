@@ -1,11 +1,15 @@
 package edu.ustc.iot.pojo.component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 网关
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Gateway extends Component{
     private String model;               //型号
     private String innerProtocols;      //物联网设备间协议

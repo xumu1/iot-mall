@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
  * @Date: 2020-5-16 18:39
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Component {
   private Integer id;
 }

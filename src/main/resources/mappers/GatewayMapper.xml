@@ -17,16 +17,16 @@
     </resultMap>
     <sql id="Base_Column_List">
         id,model,innerProtocols,
-        uploadProtocols,IndustrialGrade,
+        uploadProtocols,industrialGrade,
         chargeable, lowVoltage,
         highVoltage,lowTemperature,
-        highTemperature,desc,otherDesc
+        highTemperature,`desc`,otherDesc
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        *
         from gateway
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id}
     </select>
     <select id="selectByType" resultMap="BaseResultMap">
         select
@@ -38,12 +38,19 @@
     where id = #{id}
   </delete>
 <!--    待改-->
-    <insert id="insert" parameterType="edu.ustc.iot.pojo.component.Sensor">
-    insert into component (id, name, type ,company,description)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-      #{type,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR},
-      #{description,jdbcType=VARCHAR}
-      )
+    <insert id="insert" parameterType="edu.ustc.iot.pojo.component.Gateway">
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into gateway
+        ( model,innerProtocols,
+        uploadProtocols,industrialGrade,
+        chargeable, lowVoltage,
+        highVoltage,lowTemperature,
+        highTemperature,`desc`,otherDesc)
+        values (#{model}, #{innerProtocols},
+        #{uploadProtocols}, #{industrialGrade},
+        #{chargeable}, #{lowVoltage}, #{highVoltage}, #{lowTemperature},#{highTemperature},#{desc}, #{otherDesc})
   </insert>
     <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.component.Component">
     update component

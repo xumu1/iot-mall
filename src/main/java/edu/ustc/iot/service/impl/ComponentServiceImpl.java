@@ -45,6 +45,7 @@ public class ComponentServiceImpl implements IComponentService {
 
     PageHelper.startPage(pageNum,pageSize);
     List<Component> components = null;
+    ComponentResponse component = null;
     if(type == 0){
       //传感器
       components = sensorMapper.selectByType();
@@ -55,7 +56,11 @@ public class ComponentServiceImpl implements IComponentService {
     log.info("component={}",components);
     List<ComponentResponse> componentList = new ArrayList<>();
     for(Component element : components){
-      ComponentResponse component = new ComponentResponse();
+      if(type == 0){
+        component = new SensorResponse();
+      }else {
+        component = new GatewayResponse();
+      }
       BeanUtils.copyProperties(element, component);
       componentList.add(component);
     }
@@ -69,14 +74,16 @@ public class ComponentServiceImpl implements IComponentService {
   public ResponseVo<ComponentResponse> selectByComponentId(Integer componentId,Integer componentType) {
     // 根据type的不同，来对不同数据库进行查询
     Component component = null;
+    ComponentResponse componentVo = null;
     if(componentType == 0){
       //传感器
       component = sensorMapper.selectByPrimaryKey(componentId);
+      componentVo = new SensorResponse();
     }else{
       //网关
       component = gatewayMapper.selectByPrimaryKey(componentId);
+      componentVo = new GatewayResponse();
     }
-    ComponentResponse componentVo = new ComponentResponse();
     BeanUtils.copyProperties(component,componentVo);
     return ResponseVo.success(componentVo);
   }
@@ -85,19 +92,21 @@ public class ComponentServiceImpl implements IComponentService {
   @Override
   public ResponseVo<ComponentResponse> insertComponent(Integer componentType, Component component) {
     int insert;
+    ComponentResponse componentResponse = null;
     if(componentType == 0){
       // sensor
       insert = sensorMapper.insert(component);
-
+      componentResponse = new SensorResponse();
+      BeanUtils.copyProperties(component,componentResponse);
+      return ResponseVo.success(componentResponse);
     }else{
       // gateway
       insert = gatewayMapper.insert(component);
+      componentResponse = new GatewayResponse();
+      BeanUtils.copyProperties(component,componentResponse);
+      return ResponseVo.success(componentResponse);
     }
-    if(insert == 1){
-      return ResponseVo.success(new ComponentResponse());
-    }else{
-      return ResponseVo.error(ResponseEnum.INSERT_ERROR);
-    }
+//    return ResponseVo.error(ResponseEnum.INSERT_ERROR);
   }
 
   // 根据component传过来的数据来进行分析进行那些查找操作

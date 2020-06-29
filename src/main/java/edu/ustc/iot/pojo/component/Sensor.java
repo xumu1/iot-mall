@@ -1,11 +1,15 @@
 package edu.ustc.iot.pojo.component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 传感器
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Sensor extends Component{
     private Integer id;
     private String name;            //产品名称
