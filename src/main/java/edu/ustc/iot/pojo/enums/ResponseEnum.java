@@ -20,21 +20,11 @@ public enum ResponseEnum {
 
     USERNAME_OR_PASSWORD_ERROR(11, "用户名或者密码错误"),
 
-    PRODUCT_OFF_SAIL_OR_DELETE(12,"商品下架或者删除"),
+    DELETE_ERROR(5,"删除失败"),
 
-    PRODUCT_NOT_EXIST(13, "商品不存在"),
+    INSERT_ERROR(6,"添加失败"),
 
-    STOCK_NOT_ENOUGH(14, "库存不足"),
-
-    CART_PRODUCT_NOT_EXSIST(15, "购物车商品不存在"),
-
-    SHIPPING_NOT_EXIST(17, "收货地址不存在"),
-
-    SELECT_LIST_IS_EMPTY(18, "请选择商品后下单"),
-
-    ORDER_NOT_EXIST(19, "订单不存在"),
-
-    ORDER_STATUS_ERROR(20, "订单状态有误"),
+    UPDATE_ERROR(7,"更新失败")
 
     ;
     Integer code;

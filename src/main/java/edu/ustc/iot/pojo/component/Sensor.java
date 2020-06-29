@@ -16,7 +16,7 @@ public class Sensor extends Component{
     private Double speed;           //射频数据传输速率 kb/s
     private Double lowVoltage;      //供电电压（V)
     private Double highVoltage;     //供电电压（V)
-    private Double Electric;        //供电电流（mA）
+    private Double electric;        //供电电流（mA）
     private Integer company;        //厂商
     private String interfaceDesc;   //接口特性
     private String desc;            //产品特点

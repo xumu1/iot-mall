@@ -49,10 +49,17 @@ public class ComponentController {
                                                          @RequestBody Component component) {
         return componentService.insertComponent(componentType, component);
     }
+    // 更新组件
+    @PutMapping("/components/{componentType}")
+    public ResponseVo<ComponentResponse> updateComponent(@PathVariable(value = "componentType") Integer componentType,
+                                                         @RequestBody Component component){
+        return componentService.updateComponent(componentType,component);
+    }
 
-    // 删除组件，根据id
-    @DeleteMapping("/components/{componentId}")
-    public ResponseVo<ComponentResponse> deleteComponent(@PathVariable(value = "componentId") Integer componentId){
-        return componentService.deleteComponent(componentId);
+    // 删除组件，根据id和type
+    @DeleteMapping("/components/{componentType}/{componentId}")
+    public ResponseVo<ComponentResponse> deleteComponent(@PathVariable(value = "componentType") Integer componentType,
+                                                         @PathVariable(value = "componentId") Integer componentId){
+        return componentService.deleteComponentById(componentType,componentId);
     }
 }

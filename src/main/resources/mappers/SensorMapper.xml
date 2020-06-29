@@ -10,7 +10,7 @@
         <result column="speed" property="speed"/>
         <result column="lowVoltage" property="lowVoltage"/>
         <result column="highVoltage" property="highVoltage"/>
-        <result column="Electric" property="Electric"/>
+        <result column="electric" property="electric"/>
         <result column="company" property="company"/>
         <result column="interfaceDesc" property="interfaceDesc"/>
         <result column="desc" property="desc"/>
@@ -27,11 +27,12 @@
         from sensor
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteComponentById" parameterType="java.lang.Integer">
     delete from sensor
     where id = #{id,jdbcType=INTEGER}
   </delete>
 <!--    待改-->
+    <select id="selectByExample" parameterType="edu.ustc.iot.pojo.component.Sensor" resultMap="BaseResultMap"></select>
     <insert id="insert" parameterType="edu.ustc.iot.pojo.component.Component">
     insert into component (id, name, type ,company,description)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
@@ -39,61 +40,6 @@
       #{description,jdbcType=VARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="edu.ustc.iot.pojo.component.Component">
-        insert into component
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
-            <if test="company != null">
-                company,
-            </if>
-            <if test="description != null">
-                description,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=INTEGER},
-            </if>
-            <if test="company != null">
-                #{company,jdbcType=VARCHAR},
-            </if>
-            <if test="description != null">
-                #{description,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="edu.ustc.iot.pojo.component.Component">
-        update component
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                type = #{type,jdbcType=INTEGER},
-            </if>
-            <if test="company != null">
-                company = #{company,jdbcType=INTEGER},
-            </if>
-            <if test="description != null">
-                description = #{description,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
     <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.component.Component">
     update component
     set name = #{name,jdbcType=VARCHAR},
@@ -106,6 +52,5 @@
         select
         <include refid="Base_Column_List"/>
         from component
-        where type = #{type,jdbcType=INTEGER}
     </select>
 </mapper>

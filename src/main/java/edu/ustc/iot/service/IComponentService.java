@@ -20,4 +20,8 @@ public interface IComponentService {
   ResponseVo<ComponentResponse> insertComponent(Integer componentType, Component component);
 
     ResponseVo<PageInfo> selectByExample(ComponentForm componentForm);
+
+  ResponseVo<ComponentResponse> deleteComponentById(Integer type,Integer componentId);
+
+  ResponseVo<ComponentResponse> updateComponent(Integer type, Component component);
 }

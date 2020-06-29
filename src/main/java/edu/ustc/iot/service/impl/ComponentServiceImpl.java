@@ -6,7 +6,10 @@ import edu.ustc.iot.dao.ComponentMapper;
 import edu.ustc.iot.dao.GatewayMapper;
 import edu.ustc.iot.dao.SensorMapper;
 import edu.ustc.iot.pojo.component.Component;
+import edu.ustc.iot.pojo.enums.ResponseEnum;
 import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
+import edu.ustc.iot.pojo.vo.reponse.GatewayResponse;
+import edu.ustc.iot.pojo.vo.reponse.SensorResponse;
 import edu.ustc.iot.pojo.vo.request.form.ComponentForm;
 import edu.ustc.iot.service.IComponentService;
 import edu.ustc.iot.pojo.vo.ResponseVo;
@@ -29,9 +32,11 @@ import java.util.List;
 public class ComponentServiceImpl implements IComponentService {
 
   @Autowired
+  @SuppressWarnings("all")
   private GatewayMapper gatewayMapper;
 
   @Autowired
+  @SuppressWarnings("all")
   private SensorMapper sensorMapper;
 
   //根据类型查找组件
@@ -42,10 +47,10 @@ public class ComponentServiceImpl implements IComponentService {
     List<Component> components = null;
     if(type == 0){
       //传感器
-      components = sensorMapper.selectByType(type);
+      components = sensorMapper.selectByType();
     }else {
       //网关
-      components = gatewayMapper.selectByType(type);
+      components = gatewayMapper.selectByType();
     }
     log.info("component={}",components);
     List<ComponentResponse> componentList = new ArrayList<>();
@@ -79,7 +84,20 @@ public class ComponentServiceImpl implements IComponentService {
   // 根据类型添加
   @Override
   public ResponseVo<ComponentResponse> insertComponent(Integer componentType, Component component) {
-    return null;
+    int insert;
+    if(componentType == 0){
+      // sensor
+      insert = sensorMapper.insert(component);
+
+    }else{
+      // gateway
+      insert = gatewayMapper.insert(component);
+    }
+    if(insert == 1){
+      return ResponseVo.success(new ComponentResponse());
+    }else{
+      return ResponseVo.error(ResponseEnum.INSERT_ERROR);
+    }
   }
 
   // 根据component传过来的数据来进行分析进行那些查找操作
@@ -106,5 +124,46 @@ public class ComponentServiceImpl implements IComponentService {
     PageInfo pageInfo = new PageInfo<>(components);
     pageInfo.setList(componentList);
     return ResponseVo.success(pageInfo);
+  }
+
+  //根据类型和id删除
+  @Override
+  public ResponseVo<ComponentResponse> deleteComponentById(Integer type,Integer componentId) {
+    int i;
+    if(type == 0){
+      // 传感器
+      i = sensorMapper.deleteComponentById(componentId);
+    }else{
+      // 网关
+      i = gatewayMapper.deleteComponentById(componentId);
+    }
+    if(i == 1){
+      return ResponseVo.success(new ComponentResponse(componentId));
+    }else{
+      return ResponseVo.error(ResponseEnum.DELETE_ERROR);
+    }
+  }
+
+  //根据类型更新数据
+  @Override
+  public ResponseVo<ComponentResponse> updateComponent(Integer type, Component component) {
+    int i;
+    ComponentResponse componentResponse = null;
+    if(type == 0){
+      // sensor
+      i = sensorMapper.updateByPrimaryKey(component);
+      componentResponse = new SensorResponse();
+      BeanUtils.copyProperties(component,componentResponse);
+    }else{
+      // gateway
+      i = gatewayMapper.updateByPrimaryKey(component);
+      componentResponse = new GatewayResponse();
+      BeanUtils.copyProperties(component,componentResponse);
+    }
+    if(i == 1){
+      return ResponseVo.success(componentResponse);
+    }else{
+      return ResponseVo.error(ResponseEnum.UPDATE_ERROR);
+    }
   }
 }
