@@ -16,19 +16,16 @@ import java.util.Set;
 @Mapper
 public interface ComponentMapper {
 
-  //根据id删除
+
   int deleteComponentById(Integer id);
 
   int insert(Component record);
 
-  //根据主键查找
-  Component selectByPrimaryKey(Integer id);
-
   int updateByPrimaryKey(Component record);
 
-  //根据类型查找
   List<Component> selectByType();
 
-  //条件查询
   List<Component> selectByExample(Component component);
+
+  Component selectByPrimaryKey(Integer id);
 }
