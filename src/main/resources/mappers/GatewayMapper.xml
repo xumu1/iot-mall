@@ -33,11 +33,44 @@
         *
         from gateway
     </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.ustc.iot.pojo.component.Gateway">
+        select * from gateway
+        <where>
+            <if test="model != null">
+                model = #{model}
+            </if>
+            <if test="model == null">
+                <if test="innerProtocols != null">
+                    innerProtocols like concat('%',#{innerProtocols},'%')
+                </if>
+                <if test="uploadProtocols != null">
+                    and uploadProtocols like concat('%',#{uploadProtocols},'%')
+                </if>
+                <if test="industrialGrade != null">
+                    and industrialGrade like concat('%',#{industrialGrade},'%')
+                </if>
+                <if test="chargeable != null">
+                    and chargeable = #{chargeable}
+                </if>
+                <if test="lowVoltage != null">
+                    and lowVoltage <![CDATA[ <= #{lowVoltage}]]>
+                </if>
+                <if test="highVoltage != null">
+                    and highVoltage >= #{highVoltage}
+                </if>
+                <if test="lowTemperature != null">
+                    and lowTemperature <![CDATA[ <= #{lowTemperature}]]>
+                </if>
+                <if test="highTemperature != null">
+                    and highTemperature >= #{highTemperature}
+                </if>
+            </if>
+        </where>
+    </select>
     <delete id="deleteComponentById" parameterType="java.lang.Integer">
-    delete from component
-    where id = #{id}
-  </delete>
-<!--    待改-->
+        delete from gateway
+        where id = #{id}
+    </delete>
     <insert id="insert" parameterType="edu.ustc.iot.pojo.component.Gateway">
         <selectKey keyProperty="id" resultType="Integer" order="AFTER">
             select LAST_INSERT_ID()
@@ -51,14 +84,21 @@
         values (#{model}, #{innerProtocols},
         #{uploadProtocols}, #{industrialGrade},
         #{chargeable}, #{lowVoltage}, #{highVoltage}, #{lowTemperature},#{highTemperature},#{desc}, #{otherDesc})
-  </insert>
-    <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.component.Component">
-    update component
-    set name = #{name,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      company = #{company,jdbcType=INTEGER},
-      description = #{description,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="edu.ustc.iot.pojo.component.Gateway">
+        update gateway
+        set model = #{model},
+        innerProtocols = #{innerProtocols},
+        uploadProtocols = #{uploadProtocols},
+        industrialGrade = #{industrialGrade},
+        chargeable = #{chargeable},
+        lowVoltage = #{lowVoltage},
+        highVoltage = #{highVoltage},
+        lowTemperature = #{lowTemperature},
+        highTemperature = #{highTemperature},
+        `desc` = #{desc},
+        otherDesc = #{otherDesc}
+        where id = #{id}
+    </update>
 </mapper>
 

@@ -2,10 +2,11 @@ package edu.ustc.iot.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import edu.ustc.iot.dao.ComponentMapper;
 import edu.ustc.iot.dao.GatewayMapper;
 import edu.ustc.iot.dao.SensorMapper;
 import edu.ustc.iot.pojo.component.Component;
+import edu.ustc.iot.pojo.component.Gateway;
+import edu.ustc.iot.pojo.component.Sensor;
 import edu.ustc.iot.pojo.enums.ResponseEnum;
 import edu.ustc.iot.pojo.vo.reponse.ComponentResponse;
 import edu.ustc.iot.pojo.vo.reponse.GatewayResponse;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class ComponentServiceImpl implements IComponentService {
+public class ComponentServiceImpl<T> implements IComponentService {
 
   @Autowired
   @SuppressWarnings("all")
@@ -116,17 +117,22 @@ public class ComponentServiceImpl implements IComponentService {
     Integer pageSize = componentForm.getPageSize();
     PageHelper.startPage(pageNum,pageSize);
     List<Component> components = null;
+    ComponentResponse component = null;
     if(componentForm.getType() == 0){
       //传感器
-      components = sensorMapper.selectByExample(componentForm.getComponent());
+      components = sensorMapper.selectByExample((Sensor)componentForm.getComponent());
     }else {
       //网关
-      components = gatewayMapper.selectByExample(componentForm.getComponent());
+      components = gatewayMapper.selectByExample((Gateway)componentForm.getComponent());
     }
     log.info("component={}",components);
     List<ComponentResponse> componentList = new ArrayList<>();
     for(Component element : components){
-      ComponentResponse component = new ComponentResponse();
+      if(componentForm.getType() == 0){
+        component = new SensorResponse();
+      }else {
+        component = new GatewayResponse();
+      }
       BeanUtils.copyProperties(element, component);
       componentList.add(component);
     }

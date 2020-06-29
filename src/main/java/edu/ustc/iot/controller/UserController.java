@@ -57,10 +57,5 @@ public class UserController {
         return ResponseVo.success();
     }
 
-    @GetMapping("/test")
-    public String test1(){
-        System.out.println("success");
-        return "test1";
-    }
 
 }

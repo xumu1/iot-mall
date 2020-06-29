@@ -41,8 +41,12 @@ public class ComponentController {
     }
 
     //多条件查询
-    @PostMapping("/components")
-    public ResponseVo<PageInfo> selectByExample(@RequestBody ComponentForm componentForm) {
+    @PostMapping("/components/pageQuery/0")
+    public ResponseVo<PageInfo> selectBySensorExample(@RequestBody ComponentForm<Sensor> componentForm) {
+        return componentService.selectByExample(componentForm);
+    }
+    @PostMapping("/components/pageQuery/1")
+    public ResponseVo<PageInfo> selectByGatewayExample(@RequestBody ComponentForm<Gateway> componentForm) {
         return componentService.selectByExample(componentForm);
     }
 
@@ -55,11 +59,15 @@ public class ComponentController {
     public ResponseVo<ComponentResponse> insertGateway(@RequestBody Gateway component) {
         return componentService.insertComponent(1, component);
     }
+    // 1
     // 更新组件
-    @PutMapping("/components/{componentType}")
-    public ResponseVo<ComponentResponse> updateComponent(@PathVariable(value = "componentType") Integer componentType,
-                                                         @RequestBody Component component){
-        return componentService.updateComponent(componentType,component);
+    @PutMapping("/components/0")
+    public ResponseVo<ComponentResponse> updateSensor(@RequestBody Sensor component){
+        return componentService.updateComponent(0,component);
+    }
+    @PutMapping("/components/1")
+    public ResponseVo<ComponentResponse> updateGateway(@RequestBody Gateway component){
+        return componentService.updateComponent(1,component);
     }
 
     // 删除组件，根据id和type

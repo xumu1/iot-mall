@@ -21,6 +21,7 @@ public class User {
   private String phone;
   private Integer company;
   //新增字段，判断是否是管理员
+  // 0:用户 1:管理员 2:供应商
   private Integer role;
 
 }

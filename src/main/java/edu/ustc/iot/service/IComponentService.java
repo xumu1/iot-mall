@@ -12,14 +12,14 @@ import edu.ustc.iot.pojo.vo.request.form.ComponentForm;
  * @Author: xumu
  * @Date: 2020-5-18 14:03
  */
-public interface IComponentService {
+public interface IComponentService<T> {
   ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
 
   ResponseVo<ComponentResponse> selectByComponentId(Integer componentId,Integer componentType);
 
   ResponseVo<ComponentResponse> insertComponent(Integer componentType, Component component);
 
-    ResponseVo<PageInfo> selectByExample(ComponentForm componentForm);
+  ResponseVo<PageInfo> selectByExample(ComponentForm<T> componentForm);
 
   ResponseVo<ComponentResponse> deleteComponentById(Integer type,Integer componentId);
 
