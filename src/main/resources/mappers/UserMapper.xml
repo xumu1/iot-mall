@@ -70,4 +70,10 @@
         from user
         where username = #{username,jdbcType=VARCHAR}
     </select>
+    <select id="countByUsername" parameterType="string" resultType="integer">
+        select count(1) from user where username = #{username}
+    </select>
+    <select id="countByEmail" parameterType="string" resultType="integer">
+        select count(1) from email where username = #{email}
+    </select>
 </mapper>

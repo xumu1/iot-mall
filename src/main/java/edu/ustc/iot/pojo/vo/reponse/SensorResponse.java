@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SensorResponse extends ComponentResponse{
-    private Integer id;
     private String name;            //产品名称
     private String model;           //产品型号
     private Double frequencyBand;   //工作频段

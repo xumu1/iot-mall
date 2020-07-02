@@ -1,8 +1,11 @@
 package edu.ustc.iot.pojo;
 
+import edu.ustc.iot.pojo.component.Component;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * 功能描述：方案
@@ -19,4 +22,5 @@ public class Program {
   private Integer uid;
   private  Integer isPublic;
   private  String intros;
+  private List<Component> componentList;
 }

@@ -23,4 +23,8 @@ public interface UserMapper {
   int updateByPrimaryKey(User record);
 
   User selectByUsername(String username);
+
+  int countByUsername(String username);
+
+  int countByEmail(String email);
 }
