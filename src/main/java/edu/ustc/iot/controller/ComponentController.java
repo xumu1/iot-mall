@@ -24,7 +24,6 @@ public class ComponentController {
     @Autowired
     private ComponentServiceImpl componentService;
 
-    //1
     //返回商品列表（引入pagehelper达到分页效果），参数通过get请求中携带的参数传递
     @GetMapping("/components")
     public ResponseVo<PageInfo> list(@RequestParam(value = "type", required = false) Integer type,
@@ -32,7 +31,7 @@ public class ComponentController {
                                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return componentService.list(type, pageNum, pageSize);
     }
-    //1
+
     //根据id查询某一产品，参数在url中传递
     @GetMapping("/components/{componentType}/{componentId}")
     public ResponseVo<ComponentResponse> showComponentDetail(@PathVariable(value = "componentId") Integer componentId,
@@ -59,7 +58,7 @@ public class ComponentController {
     public ResponseVo<ComponentResponse> insertGateway(@RequestBody Gateway component) {
         return componentService.insertComponent(1, component);
     }
-    // 1
+
     // 更新组件
     @PutMapping("/components/0")
     public ResponseVo<ComponentResponse> updateSensor(@RequestBody Sensor component){

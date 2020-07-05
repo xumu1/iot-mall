@@ -1,6 +1,8 @@
 package edu.ustc.iot.pojo;
 
 import edu.ustc.iot.pojo.component.Component;
+import edu.ustc.iot.pojo.component.Gateway;
+import edu.ustc.iot.pojo.component.Sensor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +24,6 @@ public class Program {
   private Integer uid;
   private  Integer isPublic;
   private  String intros;
-  private List<Component> componentList;
+  private List<Sensor> sensorsList;
+  private List<Gateway> gatewaysList;
 }
